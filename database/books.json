@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "title": "",
+        "ISBN": "",
+        "date_published":"",
+        "description":"",
+       " genre": "",
+        "ratings":1
+    },
+    {
+        "id": 2,
+        "title": "",
+        "ISBN": "",
+        "date_published":"",
+        "description":"",
+       " genre": "",
+        "ratings":1
+    },
+    {
+        "id": 3,
+        "title": "",
+        "ISBN": "",
+        "date_published":"",
+        "description":"",
+       " genre": "",
+        "ratings":1
+    },
+    {
+        "id": 4,
+        "title": "",
+        "ISBN": "",
+        "date_published":"",
+        "description":"",
+       " genre": "",
+        "ratings":1
+    },
+    {
+        "id": 5,
+        "title": "",
+        "ISBN": "",
+        "date_published":"",
+        "description":"",
+       " genre": "",
+        "ratings":1
+    }
+]
