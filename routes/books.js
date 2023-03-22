@@ -7,13 +7,14 @@ const {
     postBooks,
     deleteBookById,
     updateBookById,
+    upload
 } = require ('../controllers/books');
 
 const bookRouter = express.Router()
 
 bookRouter.get("/", getBooks);
 bookRouter.get("/:id", getBookById)
-bookRouter.post("/", postBooks)
+bookRouter.post("/", upload.single("imgUrl"), postBooks)
 bookRouter.delete("/:id", deleteBookById)
 bookRouter.patch("/:id", updateBookById)
 

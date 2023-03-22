@@ -7,6 +7,16 @@ const BookSchema = new Schema({
         type: String,
         required: true
     },
+    author: {
+        type: String,
+        required: true,
+    },
+
+    imgUrl: {
+        type: String,
+        required: true,
+    },
+    
     description: {
         type: String,
         required: false
@@ -21,11 +31,7 @@ const BookSchema = new Schema({
         required: true,
         unique: [true, 'ISBN must be unique']
     },
-    price: {
-        type: Number,
-        required: true,
-        min: [1000, 'Price must be greater than 1000']
-    },
+
     creatAt: {
         type: Date,
         default: Date.now

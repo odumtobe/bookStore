@@ -1,10 +1,6 @@
 const express = require ("express");
-const bcrypt = require("bcrypt")
-
+const bodyParser = require("body-parser")
 require('dotenv').config();
-
-
-const User= require('./models/users');
 const booksRoute = require('./routes/books');
 const authorsRoute = require('./routes/authors');
 const usersRoute = require('./routes/users');
@@ -16,81 +12,24 @@ const port = 8000
 const app = express();
 db.connectToMongoDB();
 
-
+app.set("view engine", "ejs");
+app.set("views", "views");
 
 app.use(express.static('public'));
-app.use(express.json());
+app.use(bodyParser.json());
 
-app.use('/homepage',authenticate)
-app.use('/books', authenticate, booksRoute);
-app.use('/authors', authenticate, authorsRoute);
-app.use('/users', authenticate, usersRoute);
+app.use('/books', booksRoute);
+app.use('/authors', authorsRoute);
+app.use('/users', usersRoute);
 
-app.get("/homepage", (req, res) => {
-    res.status(200).json({message:"This is the Homepage"})
+// /homepage
+app.get("/", (req, res) => {
+    res.render("index")
 })
 
-app.post('/login', async (req,res) => {
-    const {username, password} = req.body;
-
-    const user = await User.findOne({username})
-        if(!user) {
-            return res.status(401).json({ 
-                message: "Username or password is incorrect"
-            });
-        }
-
-        if (password === user.password) {
-
-            const token = Buffer.from(`${username};${password}`).toString("base64");
-
-            return res.status(200).json({
-                message: "Auth successful", 
-                token:token
-            });
-
-        } else {
-            return res.status(401).json({
-                message: "auth failed"
-            })
-        }
-    })
-
-
-async function authenticate(req, res, next) {
-    if (req.headers.authorization) {
-        const authHeader = req.headers.authorization.split(' ');
-        const authType = authHeader[0];
-        const authValue = authHeader[1];
-        if (authType === 'Basic') {
-            const [username, password] = Buffer.from(authValue, 'base64').toString().split(':');
-            const user = await User.findOne({username});
-            if (!user) {
-                return res.status(401).json({
-                    message: 'Authorization failed'
-                });
-            }
-
-            const isPasswordMatch = await bcrypt.compare(password,user.password);
-            if(isPasswordMatch) {
-                req.user = user.username;
-                next();
-            } else {
-                return res.status(401).json({
-                    message: 'Password or Username incorrect'
-                })
-            }
-        } else {
-            return res.status(401).json({
-                message: 'Auth failed'
-            });
-        }
-    } else {
-        return res.status(401).json({
-            message: 'Header not present'
-        });
-    }
-};
+app.get("/books", (req,res) => {
+    res.render("books")
+})
 
 app.use((req, res) => {
     res.status(404).json({message:'Page not found'});

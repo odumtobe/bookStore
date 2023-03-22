@@ -23,18 +23,15 @@ const MONGODB_URI = process.env.MONGODB_URI;
 // };
 
 function connectToMongoDB() {
-    mongoose.connect(
-        MONGODB_URI,
-        {
-            dbName: "bookStore",
-            useNEwUrlParser: true,
-            useUnifiedTopology: true,
-        },
-        (err) =>
-        err ? console.log(err) : console.log (
-            "connected to bookStore"
-        )
-    )
+    mongoose.connect( MONGODB_URI);
+
+    mongoose.connection.on("connected", () => {
+        console.log("Connected to mongoDB successfully")
+    })
+
+    mongoose.connection.on("error", () => {
+        console.log("Error connecting to MongoDb")
+    })
 }
 
 //Export the 'connectToMONGODB' function

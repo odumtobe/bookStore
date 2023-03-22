@@ -1,0 +1,109 @@
+<%- include('partials/header') %>
+        <div class="nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/login">Login</a></li>
+        </div>
+    </nav>
+
+    <div class="hero-section1">
+        <div class="hero-text">
+            <h1>Welcome to Readers Corner</h1>
+            <p>Click on the button below for books</p>
+            <a href="/products.html" class="btn">Click Here<i class="fa fa-arrow-right" aria-hidden="true"></i> </a>
+        </div>
+    </div>
+    <div class="main-section2">
+        <h2>Featured Products</h2> 
+        <div class="images">
+            <div class="image-holder">
+                <a href="#">
+                    <img src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1581097994-41FddZoWzL.jpg?fill=4:6&resize=980:*" alt="img-1">
+                </a>
+            </div>
+            <div class="image-holder">
+                <a href="#">
+                    <img src="https://i.insider.com/6283bcb465d1770019e4a527?width=1000&format=jpeg&auto=webp" alt="img-2">
+                </a>
+            </div>
+            <div class="image-holder">
+                <a href="#">
+                    <img src="https://bradleysix.com/wp-content/uploads/2023/02/BSG.jpg" alt="img-3">
+                </a>
+            </div>
+            <div class="image-holder">
+                <a href="#">
+                    <img src="https://www.adazing.com/wp-content/uploads/2019/03/51ompznRZKL._SX320_BO1204203200_.jpg" alt="img-4">
+                </a>
+            </div>
+            <div class="image-holder">
+                <a href="#">
+                    <img src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/07/latest-1-e1500061170993.jpg?auto=format&q=60&fit=max&w=930" alt="img-5">
+                </a>
+            </div>
+            <div class="image-holder">
+                <a href="#">
+                    <img src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/07/latest-1-e1500061170993.jpg?auto=format&q=60&fit=max&w=930" alt="img-6">
+                </a>
+            </div>
+            <div class="image-holder">
+                <a href="#">
+                    <img src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/07/latest-1-e1500061170993.jpg?auto=format&q=60&fit=max&w=930" alt="img-7">
+                </a>
+            </div>
+            <div class="image-holder">
+                <a href="#">
+                    <img src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/07/latest-1-e1500061170993.jpg?auto=format&q=60&fit=max&w=930" alt="img-8">
+                </a>
+            </div>
+            <div class="image-holder">
+                <a href="#">
+                    <img src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/07/latest-1-e1500061170993.jpg?auto=format&q=60&fit=max&w=930" alt="img-9">
+                </a>
+            </div>
+            <div class="image-holder">
+                <a href="#">
+                    <img src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/07/latest-1-e1500061170993.jpg?auto=format&q=60&fit=max&w=930" alt="img-10">
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- section-3 contact us  -->
+    <div class="contact-section3">
+
+              <h2>Contact Us</h2>
+              <p>Kindly leave a message or suggestion:</p>
+
+              <div class="form1">
+                    <form action="/index.html">
+                        <label for="fname">First Name</label>
+                        <input type="text" id="fname" name="firstname" placeholder="John">
+                        <label for="lname">Last Name</label>
+                        <input type="text" id="lname" name="lastname" placeholder="Doe">
+                        <label for="country">Country</label>
+                        <select id="country" name="country">
+                            <option value="austria">Austria</option>
+                            <option value="australia">Australia</option>
+                            <option value="canada">Canada</option>
+                            <option value="china">China</option>
+                            <option value="benin">Benin</option>
+                            <option value="ghana">Ghana</option>
+                            <option value="niger">Niger</option>
+                            <option value="nigeria">Nigeria</option>
+                            <option value="south africa">Republic of South Africa</option>
+                            <option value="russia">Russia</option>
+                            <option value="ukraine">Ukraine</option>
+                            <option value="uk">United Kingdom</option>
+                            <option value="usa">United States of America</option>
+                            <option value="wales">Wales</option>
+                        </select>
+                        <label for="subject">Subject</label>
+                        <textarea id="subject" name="subject" placeholder="Write something.." style="height:150px"></textarea>
+                        <input type="submit" value="Submit">
+                    </form>
+              </div>
+    </div>
+<%- include('partials/footer') %>

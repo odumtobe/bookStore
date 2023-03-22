@@ -1,10 +1,35 @@
-const bookModel = require('../models/books')
+const bookModel = require('../models/books');
+const cloudinary = require('cloudinary').v2;
+const {CloudinaryStorage} = require('multer-storage-cloudinary');
+const multer = require('multer');
+
+
+//Configure Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+});
+
+//Unix timestamp in seconds
+const timestamp = Math.floor(Date.now() / 1000);
+
+//Configure multer to use Cloudinary
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'books'
+    }
+});
+
+const upload = multer({storage: storage});
 
 const getBooks = (req, res) => {
     bookModel.find()
 
     .then(books => {
-        res.json(books)
+        // res.render("books", {books});
+        res.render("books", {books});
     })
 
     .catch(err => {
@@ -27,20 +52,37 @@ bookModel.findById(id)
 
 }
 
-const postBooks = (req,res) => {
-    const book = req.body 
+const postBooks = async(req,res) => {
+    try {
+        //Upload img to Cloudinary
+        const result = await cloudinary.uploader.upload(req.file.path, {
+            timestamp: timestamp,
+        })
+        //Save room MongoDB with Cloudinary URL
+        const book = await bookModel.create({
+            ...req.body,
+            imgUrl: result.secure_url
+        });
+    
+        res.status(201).json(book);
+    
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({message: error.message});
+    }
+};
+    // const book = req.body 
 
-    book.lastUpdateAt = new Date()
+    // book.lastUpdateAt = new Date()
 
-    bookModel.create(book)
-    .then(book => {
-        res.status(201).json(book)
-    })
-    .catch(err => {
-        console.log(err)
-        res.status(500).send(err)
-    })
-}
+    // bookModel.create(book)
+    // .then(book => {
+    //     res.status(201).json(book)
+    // })
+    // .catch(err => {
+    //     console.log(err)
+    //     res.status(500).send(err)
+    // })
 
 const updateBookById = (req, res) => {
 
@@ -81,4 +123,5 @@ module.exports = {
     updateBookById ,
     deleteBookById,
     postBooks,
+    upload
 }

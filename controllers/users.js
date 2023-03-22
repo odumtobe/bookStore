@@ -1,4 +1,43 @@
-const userModel = require('../../authentication/models/users')
+const userModel = require("../models/users");
+const jwt = require("jsonwebtoken");
+const passport = require("passport")
+
+//Signup function
+const signup = async (req, res) => {
+    try {
+        const { email, password, username, phone} = req.body;
+        //check if user already exists
+        const existingUser = await userModel.findOne({email});
+        if(existingUser) {
+            return res.status(409).json({message: 'User already exist'});
+        }
+
+    // create new user with username
+    const user= new userModel({email, password, username, phone});
+    await user.save();
+    //Generate JWT
+    const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET);
+    res.status(201).json({user, token});
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({message: 'Server error'})
+    }
+};
+
+//Login function
+const login = async (req, res, next) => {
+    passport.authentication('local', {session: false}, (err, user, info) => {
+        if (err){
+            return next(err);
+        }
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid credentials'});
+        }
+        // Generate JWT
+        const token = jwt.sign({ userID: user._id}, process.env.JWT_SECRET);
+        res.json({user, token});
+    })(req, res, next);
+};
 
 const getUsers = (req, res) => {
     userModel.find()
@@ -81,4 +120,6 @@ module.exports = {
     updateUserById ,
     deleteUserById,
     postUsers,
+    login,
+    signup
 }
